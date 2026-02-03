@@ -1,0 +1,43 @@
+package se.iths.fabian.labb2enhetstestning;
+
+import com.microsoft.playwright.*;
+import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class PlaywrightTest {
+
+    @LocalServerPort
+    private int port;
+
+    private Playwright playwright;
+    private Browser browser;
+
+    @BeforeAll
+    void setup() {
+        playwright = Playwright.create();
+        browser = playwright.chromium().launch();
+    }
+
+    @AfterAll
+    void tearDown() {
+        browser.close();
+        playwright.close();
+    }
+
+    @Test
+    void testBalancePageContent() {
+        Page page = browser.newPage();
+        page.navigate("http://localhost:" + port + "/balance");
+        
+        // Verifiera att titeln och saldot syns
+        assertTrue(page.title().equals("Bankomat Saldo"));
+        assertTrue(page.locator("body").innerText().contains("Aktuellt saldo: 0 kr"));
+        
+        page.close();
+    }
+}

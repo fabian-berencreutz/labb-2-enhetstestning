@@ -9,5 +9,4 @@ class Labb2EnhetstestningApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
