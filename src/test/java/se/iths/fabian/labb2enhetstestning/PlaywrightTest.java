@@ -30,14 +30,18 @@ class PlaywrightTest {
     }
 
     @Test
-    void testBalancePageContent() {
+    void testPageTitleIsCorrect() {
         Page page = browser.newPage();
         page.navigate("http://localhost:" + port + "/balance");
-        
-        // Verifiera att titeln och saldot syns
         assertTrue(page.title().equals("Bankomat Saldo"));
+        page.close();
+    }
+
+    @Test
+    void testBalanceIsDisplayed() {
+        Page page = browser.newPage();
+        page.navigate("http://localhost:" + port + "/balance");
         assertTrue(page.locator("body").innerText().contains("Aktuellt saldo: 0 kr"));
-        
         page.close();
     }
 }
