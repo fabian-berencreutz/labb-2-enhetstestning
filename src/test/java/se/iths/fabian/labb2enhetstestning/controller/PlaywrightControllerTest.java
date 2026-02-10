@@ -1,4 +1,4 @@
-package se.iths.fabian.labb2enhetstestning;
+package se.iths.fabian.labb2enhetstestning.controller;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PlaywrightTest {
+class PlaywrightControllerTest {
 
     @LocalServerPort
     private int port;
